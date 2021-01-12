@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 
 import User from '../models/User';
+import UserMap from '../mappers/UserMap';
 
 class UserController {
   static index(req: Request, res: Response): Response {
@@ -21,7 +22,9 @@ class UserController {
     const user = repository.create({ email, password });
     await repository.save(user);
 
-    return res.json(user);
+    const mappedUser = UserMap.toDTO(user);
+
+    return res.json(mappedUser);
   }
 }
 
