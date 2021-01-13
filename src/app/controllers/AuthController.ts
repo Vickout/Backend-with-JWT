@@ -6,11 +6,11 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User';
 
 class AuthController {
-  static async authenticate(req: Request, res: Response): Promise<Response> {
+  public async authenticate(req: Request, res: Response): Promise<Response> {
     const repository = getRepository(User);
     const { email, password } = req.body;
 
-    const user = await repository.findOne({ where: email });
+    const user = await repository.findOne({ where: { email } });
 
     if (!user) {
       return res.sendStatus(401);
@@ -28,4 +28,4 @@ class AuthController {
   }
 }
 
-export default AuthController;
+export default new AuthController();

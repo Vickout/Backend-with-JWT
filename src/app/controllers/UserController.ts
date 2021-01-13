@@ -5,15 +5,15 @@ import User from '../models/User';
 import UserMap from '../mappers/UserMap';
 
 class UserController {
-  static index(req: Request, res: Response): Response {
-    return res.send({ userId: req.userId });
+  public index(req: Request, res: Response): Response {
+    return res.send({ userID: req.userId });
   }
 
-  static async store(req: Request, res: Response): Promise<Response> {
+  public async store(req: Request, res: Response): Promise<Response> {
     const repository = getRepository(User);
     const { email, password } = req.body;
 
-    const userExists = await repository.findOne({ where: email });
+    const userExists = await repository.findOne({ where: { email } });
 
     if (userExists) {
       return res.sendStatus(409);
@@ -28,4 +28,4 @@ class UserController {
   }
 }
 
-export default UserController;
+export default new UserController();
