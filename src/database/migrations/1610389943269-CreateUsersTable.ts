@@ -17,6 +17,11 @@ export default class CreateUsersTable1610389943269
             default: 'uuid_generate_v4()',
           },
           {
+            name: 'name',
+            type: 'varchar',
+            isUnique: true,
+          },
+          {
             name: 'email',
             type: 'varchar',
             isUnique: true,
